@@ -1,0 +1,39 @@
+# ---------------------------------------------------------------
+# YouTube comment collector config
+# ---------------------------------------------------------------
+
+# Your YouTube Data API v3 key.
+# (Alternative: leave this as-is and set the YOUTUBE_API_KEY environment variable.)
+api_key: "api_key_here"
+
+# Where comments are stored (CSV with columns: ID, parent_ID, text).
+# Each run ADDS new comments to this file.
+# Relative paths are relative to this folder.
+output_file: "data/comments.csv"
+
+# Videos to collect from (full links or bare 11-character IDs).
+# You can also pass links on the command line, or leave this empty
+# and paste them when the script asks.
+videos:
+   - "https://www.youtube.com/watch?v=gZuzLRzp46E"
+
+# "relevance" = top comments first, "time" = newest first
+order: relevance
+
+# Max NEW comments added per video per run. Re-running on the same video
+# keeps adding more (already-stored comments are skipped).
+max_comments_per_video: 500
+
+# Safety cap: max comments looked at per video per run (controls API quota use).
+max_scanned_per_video: 5000
+
+# Also collect replies to top-level comments
+include_replies: true
+
+# Skip comments shorter than this many characters
+min_chars: 5
+
+# true  = only store comments the rough heuristic flags as possible Vietnamese-English mixing
+# false = store everything
+# (The heuristic flag itself is not written to the CSV; the CSV has only ID, parent_ID, text.)
+only_code_switch_candidates: false
